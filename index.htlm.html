@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Stoword Beta Landing Page</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d4af35",
+                        "primary-light": "#e5c558",
+                        "primary-dark": "#b08d1f",
+                        "background-light": "#f8f7f6",
+                        "background-dark": "#050505", // Adjusted to requested #050505
+                        "surface-dark": "#121212",
+                        "scarcity-red": "#8B0000",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"],
+                    },
+                    backgroundImage: {
+                        'grain': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.05%22/%3E%3C/svg%3E')",
+                    }
+                },
+            },
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        /* Custom Utilities */
+        .text-shadow-gold {
+            text-shadow: 0 0 15px rgba(212, 175, 53, 0.3);
+        }
+        .bg-glass {
+            background: rgba(18, 18, 18, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .gold-gradient-text {
+            background: linear-gradient(to right, #d4af35, #fff5c2, #d4af35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 5s linear infinite;
+        }
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+        .metallic-btn {
+            background: linear-gradient(135deg, #b08d1f 0%, #d4af35 50%, #b08d1f 100%);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 4px 15px rgba(212, 175, 53, 0.3);
+            transition: all 0.3s ease;
+        }
+        .metallic-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 6px 20px rgba(212, 175, 53, 0.5);
+        }
+        .vintage-border {
+            border: 1px solid rgba(212, 175, 53, 0.2);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200 font-display min-h-screen relative overflow-x-hidden">
+<!-- Grain Overlay for Texture -->
+<div class="fixed inset-0 pointer-events-none opacity-20 z-0 bg-grain mix-blend-overlay"></div>
+<!-- Navigation (Minimal) -->
+<nav class="fixed top-0 w-full z-50 bg-glass border-b border-white/5">
+<div class="max-w-md mx-auto px-6 py-4 flex justify-between items-center">
+<div class="font-serif text-xl font-bold tracking-wider text-primary">Stoword.</div>
+<a class="text-xs tracking-widest uppercase text-white/70 hover:text-primary transition-colors" href="#beta-form">Beta Access</a>
+</div>
+</nav>
+<!-- Main Content Container (Mobile Focused) -->
+<main class="relative z-10 max-w-md mx-auto bg-background-dark min-h-screen shadow-2xl overflow-hidden">
+<!-- Hero Section -->
+<section class="relative pt-28 pb-12 px-6 text-center flex flex-col items-center">
+<!-- Scarcity Badge -->
+<div class="animate-pulse mb-6 inline-flex items-center px-3 py-1 rounded-full bg-scarcity-red/20 border border-scarcity-red/50 shadow-[0_0_15px_rgba(139,0,0,0.4)]">
+<span class="w-1.5 h-1.5 rounded-full bg-red-500 mr-2 animate-ping"></span>
+<span class="text-[10px] font-bold tracking-[0.2em] text-red-200 uppercase">BETA GIỚI HẠN: CHỈ 100 SLOT</span>
+</div>
+<!-- Headlines -->
+<h1 class="font-serif text-3xl md:text-4xl font-medium text-white leading-tight mb-4">
+                Bạn có Reading 7.5 nhưng <span class="italic text-primary font-serif">Writing vẫn mãi 6.0?</span>
+</h1>
+<p class="text-gray-400 font-light text-sm leading-relaxed mb-8 max-w-xs mx-auto">
+                Khoảng cách giữa "Biết từ" và "Dùng được từ" là một câu chuyện. Đừng để vốn từ vựng chết dần trong sổ tay.
+            </p>
+<!-- Primary CTA -->
+<a class="metallic-btn w-full py-4 rounded px-6 font-bold text-black uppercase tracking-wide text-xs mb-10 flex items-center justify-center gap-2" href="#register">
+<span>[ ĐỌC THỬ 1 STORY – MIỄN PHÍ ]</span>
+<span class="material-icons-outlined text-sm">arrow_forward</span>
+</a>
+<!-- iPhone Mockup Area -->
+<div class="relative w-full aspect-[9/16] max-h-[500px] rounded-[2.5rem] border-4 border-gray-800 bg-surface-dark shadow-[0_0_50px_rgba(212,175,53,0.1)] overflow-hidden group">
+<!-- Status Bar -->
+<div class="absolute top-0 w-full h-8 flex justify-between items-center px-6 pt-2 z-20">
+<span class="text-[10px] text-white">9:41</span>
+<div class="w-16 h-5 bg-black rounded-b-xl absolute left-1/2 -translate-x-1/2 top-0"></div>
+<span class="material-icons-outlined text-[12px] text-white">wifi</span>
+</div>
+<!-- App Screen Content -->
+<div class="absolute inset-0 bg-background-dark pt-12 px-5 pb-6 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<span class="material-icons-outlined text-gray-400">arrow_back</span>
+<span class="font-serif text-primary text-sm tracking-widest uppercase">The Lost Scholar</span>
+<span class="material-icons-outlined text-gray-400">bookmark_border</span>
+</div>
+<!-- Story Card -->
+<div class="flex-1 overflow-y-auto no-scrollbar">
+<img class="w-full h-48 object-cover rounded-xl mb-6 opacity-80" data-alt="Dark moody library atmosphere blurred background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwj24CGYMAuJFkhQLsic4jn7yglOTIJ799i4FxczP_J1bcI_kYbPKyQYDkT66Ad8xaCCLv9lY-7DV8MOjrUFxd9VRvMYmuo2mmE01SIyp2bt8uPggATgSNbVWLlRWIi7SFRcb8CngpbC9yLgATyfuCabui-yr464YjP5Ynp1qy06W5QAvWoQHaYsQDeSjCJJI-WAtYLZxjnved63GqVvLygf3AH1x5llv4BjVoBiVyfznlSsADvO14hkl39ZwMZ3yScdfpbTchHJ-4"/>
+<h3 class="font-serif text-2xl text-white mb-4">Chapter 1: The Epiphany</h3>
+<p class="text-gray-300 font-light leading-7 text-sm">
+                            Under the <span class="text-primary font-medium border-b border-primary/30 cursor-pointer">dim illumination</span> of the library lamps, Elara felt a sense of <span class="text-primary font-medium border-b border-primary/30 cursor-pointer">profound solitude</span>. The ancient texts were not merely ink on paper; they were <span class="text-primary font-medium border-b border-primary/30 cursor-pointer">conduits</span> to a forgotten era...
+                        </p>
+</div>
+<!-- Floating Definition (Simulated) -->
+<div class="absolute bottom-6 left-4 right-4 bg-gray-900/95 backdrop-blur border border-primary/20 p-4 rounded-xl shadow-2xl transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+<div class="flex justify-between items-start mb-1">
+<h4 class="text-primary font-serif font-bold text-lg">Conduit</h4>
+<span class="text-xs text-gray-500 italic">noun</span>
+</div>
+<p class="text-gray-400 text-xs mb-2">/ˈkɒn.djuː.ɪt/ • channel, medium</p>
+<p class="text-gray-300 text-xs leading-snug">A person or organization that communicates information to others.</p>
+</div>
+</div>
+</div>
+<!-- Glow Effect behind phone -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-primary/5 blur-[80px] -z-10 rounded-full"></div>
+</section>
+<!-- Problem Section -->
+<section class="py-16 px-8 bg-surface-dark/50 relative">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-transparent via-primary/30 to-transparent"></div>
+<div class="text-center max-w-xs mx-auto">
+<span class="material-icons-outlined text-4xl text-gray-600 mb-6 block mx-auto opacity-50">psychology_alt</span>
+<h2 class="font-serif text-2xl text-white mb-6 leading-snug">
+                    Bạn đã từng đọc bài mẫu Band 8, gật gù tâm đắc, nhưng...
+                </h2>
+<div class="space-y-4 text-gray-400 text-sm font-light">
+<p>...đến khi đặt bút viết, đầu óc lại trống rỗng?</p>
+<p>Đó không phải lỗi của bạn. Đó là lỗi của phương pháp học "thụ động". Não bộ từ chối ghi nhớ những từ ngữ vô hồn, thiếu cảm xúc và ngữ cảnh.</p>
+</div>
+</div>
+</section>
+<!-- Methodology Section -->
+<section class="py-16 px-6 bg-background-dark relative">
+<div class="text-center mb-12">
+<span class="text-[10px] tracking-[0.3em] uppercase text-primary mb-2 block">Our Methodology</span>
+<h2 class="font-serif text-2xl text-white">Khoa học của Ký ức</h2>
+</div>
+<div class="space-y-12">
+<!-- Method 1 -->
+<div class="flex gap-5 items-start">
+<div class="shrink-0 w-12 h-12 rounded-full border border-primary/30 flex items-center justify-center bg-primary/5 text-primary">
+<span class="material-icons-outlined">person</span>
+</div>
+<div>
+<h3 class="font-serif text-lg text-primary mb-2">Self-Reference Effect</h3>
+<p class="text-sm text-gray-400 font-light leading-relaxed">
+                            Não bộ ưu tiên ghi nhớ thông tin liên quan đến bản thân. Stoword biến từ vựng thành câu chuyện của chính bạn.
+                        </p>
+</div>
+</div>
+<!-- Method 2 -->
+<div class="flex gap-5 items-start">
+<div class="shrink-0 w-12 h-12 rounded-full border border-primary/30 flex items-center justify-center bg-primary/5 text-primary">
+<span class="material-icons-outlined">anchor</span>
+</div>
+<div>
+<h3 class="font-serif text-lg text-primary mb-2">Emotional Anchoring</h3>
+<p class="text-sm text-gray-400 font-light leading-relaxed">
+                            Cảm xúc là chất keo dính của trí nhớ. Chúng tôi neo từ vựng vào những cốt truyện kịch tính, bi tráng.
+                        </p>
+</div>
+</div>
+<!-- Method 3 -->
+<div class="flex gap-5 items-start">
+<div class="shrink-0 w-12 h-12 rounded-full border border-primary/30 flex items-center justify-center bg-primary/5 text-primary">
+<span class="material-icons-outlined">psychology</span>
+</div>
+<div>
+<h3 class="font-serif text-lg text-primary mb-2">AI Spaced Repetition</h3>
+<p class="text-sm text-gray-400 font-light leading-relaxed">
+                            Không ôn tập máy móc. AI tính toán "điểm rơi của sự quên lãng" để nhắc lại từ đúng lúc bạn sắp quên.
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Social Proof & Features -->
+<section class="py-16 px-6 bg-gradient-to-b from-surface-dark to-background-dark border-y border-white/5">
+<!-- Counter -->
+<div class="text-center mb-10">
+<div class="text-4xl font-serif text-white mb-1">57</div>
+<div class="text-xs uppercase tracking-widest text-primary/80">IELTS Learners đang chờ</div>
+</div>
+<!-- Testimonial -->
+<div class="bg-black/40 border border-white/5 p-6 rounded-xl mb-12 relative">
+<span class="absolute -top-3 left-6 text-4xl text-primary font-serif leading-none">“</span>
+<p class="text-gray-300 italic font-light text-sm mb-4 pt-2 relative z-10">
+                    "Mình từng kẹt ở Writing 6.0 suốt 1 năm. Cách học qua Story của Stoword giúp mình dùng từ 'sophisticated' một cách tự nhiên hơn hẳn. Cảm giác như đang đọc tiểu thuyết chứ không phải học."
+                </p>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-gray-700 overflow-hidden">
+<img class="w-full h-full object-cover opacity-80" data-alt="Portrait of a young female student smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKt5zxELiUEzYlzQ3Lw6IQWDGAGH7Hp3zH7YNydwq11VMNTWZCtcyccg090JG1dO4xaf5YCGiyXOleXx4A88a-aIglC1n_S9j_cIkwpvw4_s0hgp2-Aewq6MmEa7GrOVPrzuj8MWdwAl9ogfkhEo5DCYgmY_JNf0rmUN3sxB8ISkm1uypqDj-yDvmOb4goCh4cczCLvfNLLVH3PvRm5PKPGsmgOqKVRfAsdpGc3R_2_-Zb3vDNMfqjPGN9qyxB9xoJ7BpMiqqOOd3e"/>
+</div>
+<div>
+<div class="text-white text-xs font-medium">Minh Anh</div>
+<div class="text-[10px] text-gray-500">IELTS 7.5 Overall</div>
+</div>
+<div class="ml-auto flex text-primary text-[10px]">
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+</div>
+</div>
+</div>
+<!-- Beta Benefits Checklist -->
+<div class="space-y-4 pl-2">
+<div class="flex items-center gap-3">
+<span class="material-icons-outlined text-primary text-sm">check_circle</span>
+<span class="text-gray-300 text-sm">AI Story Generator theo chủ đề yêu thích</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-icons-outlined text-primary text-sm">check_circle</span>
+<span class="text-gray-300 text-sm">Deep Dive Dictionary (ngữ nguyên, collocations)</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-icons-outlined text-primary text-sm">check_circle</span>
+<span class="text-gray-300 text-sm">Early Access trọn đời với giá ưu đãi</span>
+</div>
+</div>
+</section>
+<!-- Founder Section -->
+<section class="py-16 px-6 relative overflow-hidden">
+<!-- Background Decoration -->
+<div class="absolute -right-20 top-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+<h2 class="font-serif text-2xl text-white mb-8 leading-snug">
+                Từ 20 năm "cày cuốc" đến bước ngoặt tại Úc...
+            </h2>
+<div class="flex flex-col gap-6">
+<div class="w-24 h-24 rounded-full border-2 border-primary/20 p-1 self-start">
+<img class="w-full h-full object-cover rounded-full filter grayscale hover:grayscale-0 transition duration-500" data-alt="Professional portrait of Tung looking confident" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdSebbJ4Pwqv_85ptA5ofPGnOHLVMZkHghtjj7C0PUQCOsKGzrXYoffq11JIKbs6iR0FxmlXj0H5b0xVweHsZtFa-oEcnD9qhy64SPalazrb_wCsUGFMRY1f43jtz7ucKKo3J5UDOjJDqtC7BN-ND12Vcky8Llc2ar1z4U9_eNxgyPNLdzi7J7thg_yhRpL12NjwoYpeoH7ydgk9hzBFCAu9Fn-bIsEVoAmCSIQ0y14b4au3nU0HGxXn1DTQaOd_C5UrGcVBRnlaKG"/>
+</div>
+<div class="space-y-4">
+<div class="border-l-2 border-primary/50 pl-4">
+<h4 class="text-white font-medium">Tùng Nguyễn</h4>
+<p class="text-primary text-xs uppercase tracking-wider">AAS Scholar • Founder</p>
+</div>
+<p class="text-gray-400 text-sm font-light leading-relaxed">
+                        Tôi từng sở hữu hàng ngàn từ vựng "chết" trong sổ tay. Khi sang Úc du học, tôi nhận ra mình không thể giao tiếp sâu sắc dù điểm thi cao. Stoword ra đời từ chính nỗi đau đó—để từ vựng trở thành một phần của tư duy, không phải gánh nặng của trí nhớ.
+                    </p>
+</div>
+</div>
+</section>
+<!-- Final CTA / Footer -->
+<footer class="bg-surface-dark pt-12 pb-8 px-6 text-center border-t border-white/5" id="register">
+<h3 class="text-white font-serif text-xl mb-2">Sẵn sàng nâng tầm vốn từ?</h3>
+<p class="text-gray-500 text-xs mb-8">Chỉ còn 43/100 slots Early Bird</p>
+<form class="space-y-4 mb-8" onsubmit="event.preventDefault();">
+<input class="w-full bg-background-dark border border-white/10 rounded px-4 py-3 text-white placeholder-gray-600 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors text-sm" placeholder="Email của bạn" type="email"/>
+<button class="metallic-btn w-full py-4 rounded font-bold text-black uppercase tracking-wide text-xs shadow-lg hover:shadow-primary/20" type="submit">
+                    [ ĐĂNG KÝ BETA NGAY ]
+                </button>
+</form>
+<div class="flex justify-center gap-6 mb-8 opacity-50">
+<!-- Social Icons -->
+<span class="w-5 h-5 bg-white rounded-full"></span>
+<span class="w-5 h-5 bg-white rounded-full"></span>
+<span class="w-5 h-5 bg-white rounded-full"></span>
+</div>
+<p class="text-[10px] text-gray-700 uppercase tracking-widest">© 2023 Stoword. All rights reserved.</p>
+</footer>
+<!-- Sticky Bottom CTA for Mobile (appears on scroll - simulated here as static for single page demo) -->
+<div class="fixed bottom-6 left-6 right-6 z-40 md:hidden opacity-0 pointer-events-none transition-opacity duration-300" id="sticky-cta">
+<a class="metallic-btn w-full py-3 rounded-full font-bold text-black uppercase tracking-wide text-xs shadow-2xl flex items-center justify-center" href="#register">
+                Đăng ký ngay
+            </a>
+</div>
+</main>
+<script>
+        // Simple Intersection Observer to show sticky CTA when scrolling past Hero
+        const observer = new IntersectionObserver((entries) => {
+            const cta = document.getElementById('sticky-cta');
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    cta.classList.remove('opacity-0', 'pointer-events-none');
+                } else {
+                    cta.classList.add('opacity-0', 'pointer-events-none');
+                }
+            });
+        });
+        
+        // Observe the first CTA button
+        const heroBtn = document.querySelector('.metallic-btn');
+        if(heroBtn) observer.observe(heroBtn);
+    </script>
+</body></html>
