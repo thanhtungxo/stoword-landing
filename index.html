@@ -5,557 +5,353 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Stoword – Học từ vựng qua câu chuyện của chính bạn</title>
     <meta name="description" content="Stoword biến mỗi từ vựng thành một câu chuyện cá nhân hóa. Não bạn không nhớ định nghĩa – não bạn nhớ trải nghiệm.">
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Serif+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
-
     <style>
         :root {
-            --gold: #d4af35;
-            --gold-light: #f4d125;
-            --gold-dark: #b08d1f;
-            --bg-deep: #0a0a0c;
-            --bg-dark: #0f1014;
-            --bg-surface: #141418;
-            --bg-card: #1a1a22;
-            --text-primary: #ffffff;
-            --text-secondary: #b0b0b8;
-            --text-muted: #6b6b78;
-            --purple-nebula: #8B5CF6;
-            --blue-nebula: #3B82F6;
-            --border-subtle: rgba(255,255,255,0.06);
-            --border-gold: rgba(212,175,53,0.2);
+            --gold: #d4af35; --gold-light: #f4d125; --gold-dark: #b08d1f;
+            --bg-deep: #0a0a0c; --bg-dark: #0f1014; --bg-surface: #131317; --bg-card: #1a1a22;
+            --text-primary: #fff; --text-secondary: #b0b0b8; --text-muted: #6b6b78;
+            --border-subtle: rgba(255,255,255,0.06); --border-gold: rgba(212,175,53,0.2);
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        html { 
-            scroll-behavior: smooth; 
-            -webkit-font-smoothing: antialiased;
-        }
-        
-        body {
-            font-family: 'Manrope', sans-serif;
-            background: var(--bg-deep);
-            color: var(--text-secondary);
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Manrope', sans-serif; background: var(--bg-deep); color: var(--text-secondary); line-height: 1.7; overflow-x: hidden; }
 
-        /* ===== COSMIC BG ===== */
+        /* === COSMIC BG === */
         .cosmic-bg {
             position: fixed; inset: 0; z-index: 0; pointer-events: none;
             background: radial-gradient(ellipse at 30% 20%, rgba(139,92,246,0.06) 0%, transparent 50%),
                         radial-gradient(ellipse at 70% 80%, rgba(59,130,246,0.04) 0%, transparent 50%),
                         radial-gradient(ellipse at 50% 0%, #1a1a22 0%, var(--bg-deep) 70%);
         }
-        .stars {
-            position: fixed; inset: 0; z-index: 0; pointer-events: none;
-        }
+        .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
         .stars::before, .stars::after {
             content: ''; position: absolute; inset: 0;
-            background-image: 
-                radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.4), transparent),
+            background-image: radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.4), transparent),
                 radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.25), transparent),
                 radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,0.3), transparent),
                 radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,0.2), transparent),
                 radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,0.35), transparent),
-                radial-gradient(1px 1px at 15% 90%, rgba(255,255,255,0.15), transparent),
-                radial-gradient(1px 1px at 45% 50%, rgba(255,255,255,0.2), transparent),
-                radial-gradient(1px 1px at 85% 15%, rgba(255,255,255,0.3), transparent),
                 radial-gradient(1.5px 1.5px at 60% 70%, rgba(212,175,53,0.3), transparent),
                 radial-gradient(1.5px 1.5px at 25% 35%, rgba(139,92,246,0.25), transparent);
         }
         .stars::after {
-            background-image: 
-                radial-gradient(1px 1px at 5% 45%, rgba(255,255,255,0.3), transparent),
-                radial-gradient(1px 1px at 22% 78%, rgba(255,255,255,0.2), transparent),
+            background-image: radial-gradient(1px 1px at 5% 45%, rgba(255,255,255,0.3), transparent),
                 radial-gradient(1px 1px at 38% 25%, rgba(255,255,255,0.25), transparent),
-                radial-gradient(1px 1px at 55% 92%, rgba(255,255,255,0.15), transparent),
                 radial-gradient(1px 1px at 78% 55%, rgba(255,255,255,0.3), transparent),
                 radial-gradient(1px 1px at 92% 30%, rgba(255,255,255,0.2), transparent);
             animation: twinkle 8s ease-in-out infinite alternate;
         }
         @keyframes twinkle { 0% { opacity: 1; } 100% { opacity: 0.5; } }
 
-        /* ===== TYPOGRAPHY ===== */
-        .font-display { font-family: 'Playfair Display', serif; }
-        .gradient-gold-text {
-            background: linear-gradient(135deg, #d4af35, #fff5c2, #d4af35);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-        }
-
-        /* ===== LAYOUT ===== */
+        /* === SHARED === */
+        .gradient-gold-text { background: linear-gradient(135deg, #d4af35, #fff5c2, #d4af35); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
         section { position: relative; z-index: 1; }
-        .section-label {
-            font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase;
-            color: var(--gold); font-weight: 600; margin-bottom: 12px;
-        }
+        .section-label { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 12px; }
 
-        /* ===== NAV ===== */
-        nav {
-            position: fixed; top: 0; width: 100%; z-index: 100;
-            background: rgba(10,10,12,0.85); backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-subtle);
-        }
-        nav .inner {
-            max-width: 1140px; margin: 0 auto; padding: 16px 24px;
-            display: flex; justify-content: space-between; align-items: center;
-        }
+        /* Section separator */
+        .section-sep { position: relative; z-index: 1; max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+        .section-sep::after { content: ''; display: block; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06) 20%, rgba(212,175,53,0.1) 50%, rgba(255,255,255,0.06) 80%, transparent); }
+
+        /* Alternating bg */
+        .bg-alt { background: var(--bg-surface); }
+
+        /* === NAV === */
+        nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(10,10,12,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-subtle); }
+        nav .inner { max-width: 1140px; margin: 0 auto; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; letter-spacing: 0.05em; color: var(--gold); }
 
-        /* ===== BUTTONS ===== */
+        /* === BUTTONS === */
         .btn-gold {
-            display: inline-flex; align-items: center; gap: 10px;
-            padding: 14px 32px;
+            display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px;
             background: linear-gradient(135deg, #b08d1f 0%, #d4af35 40%, #f4d125 60%, #d4af35 100%);
-            color: #000; font-weight: 700; font-size: 0.875rem;
-            letter-spacing: 0.05em; text-transform: uppercase; border-radius: 12px;
-            text-decoration: none; border: none; cursor: pointer; transition: all 0.3s ease;
+            color: #000; font-weight: 700; font-size: 0.875rem; letter-spacing: 0.05em; text-transform: uppercase;
+            border-radius: 12px; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s ease;
             box-shadow: 0 4px 20px rgba(212,175,53,0.25), inset 0 1px 0 rgba(255,255,255,0.3);
         }
-        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(212,175,53,0.4), inset 0 1px 0 rgba(255,255,255,0.3); }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(212,175,53,0.4); }
         .btn-gold-sm { padding: 10px 24px; font-size: 0.8rem; border-radius: 50px; }
         .btn-outline {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 12px 28px; background: transparent; color: var(--gold);
-            font-weight: 600; font-size: 0.875rem; border: 1.5px solid var(--border-gold);
+            display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; background: transparent;
+            color: var(--gold); font-weight: 600; font-size: 0.875rem; border: 1.5px solid var(--border-gold);
             border-radius: 12px; text-decoration: none; cursor: pointer; transition: all 0.3s ease;
         }
         .btn-outline:hover { background: rgba(212,175,53,0.08); border-color: var(--gold); }
 
-        /* ===== HERO ===== */
-        .hero { padding: 140px 0 100px; min-height: 100vh; display: flex; align-items: center; }
-        .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .hero-headline {
-            font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 4vw, 3.2rem);
-            font-weight: 600; color: var(--text-primary); line-height: 1.3; margin-bottom: 24px;
-        }
+        /* ============================================
+           HERO — 2 phones stacked
+        ============================================ */
+        .hero { padding: 130px 0 70px; }
+        .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+        .hero-headline { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.8vw, 3rem); font-weight: 600; color: var(--text-primary); line-height: 1.3; margin-bottom: 20px; }
         .hero-headline em { font-style: italic; color: var(--gold); }
-        .hero-sub { font-size: 1.1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 40px; max-width: 520px; font-weight: 300; }
+        .hero-sub { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 36px; max-width: 500px; font-weight: 300; }
         .hero-cta-group { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
 
-        .phone-mockup {
-            width: 300px; margin: 0 auto; aspect-ratio: 9/18.5;
-            border-radius: 44px; border: 3px solid rgba(255,255,255,0.12);
-            background: var(--bg-dark); overflow: hidden; position: relative;
-            box-shadow: 0 0 80px rgba(212,175,53,0.08), 0 0 40px rgba(139,92,246,0.05), 0 40px 80px rgba(0,0,0,0.5);
+        .hero-phones { position: relative; height: 480px; display: flex; justify-content: center; }
+        .hero-phone {
+            width: 220px; aspect-ratio: 9/18.5; border-radius: 32px;
+            border: 2.5px solid rgba(255,255,255,0.12); background: var(--bg-dark);
+            overflow: hidden; position: absolute;
+            box-shadow: 0 0 60px rgba(0,0,0,0.5), 0 0 40px rgba(212,175,53,0.05);
+            transition: transform 0.5s ease;
         }
-        .phone-mockup .notch {
-            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 80px; height: 26px; background: #000; border-radius: 0 0 18px 18px; z-index: 10;
-        }
-        .phone-mockup img { width: 100%; height: 100%; object-fit: cover; }
-        .phone-placeholder {
+        .hero-phone--dark { top: 0; left: 50%; transform: translateX(-65%); z-index: 2; }
+        .hero-phone--light { top: 40px; left: 50%; transform: translateX(-20%); z-index: 1; opacity: 0.85; }
+        .hero-phone .notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 70px; height: 22px; background: #000; border-radius: 0 0 14px 14px; z-index: 10; }
+        .hero-phone img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-phone .ph {
             width: 100%; height: 100%; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; padding: 40px 20px; text-align: center;
-            background: linear-gradient(180deg, #1a1d25 0%, #121215 100%);
+            align-items: center; justify-content: center; padding: 24px; text-align: center;
+            background: linear-gradient(180deg, #1a1d25, #121215);
         }
-        .phone-placeholder .icon { font-size: 48px; color: var(--gold); opacity: 0.5; margin-bottom: 16px; }
-        .phone-placeholder p { font-size: 0.75rem; color: var(--text-muted); }
+        .hero-phone--light .ph { background: linear-gradient(180deg, #f0f0f0, #e0e0e0); }
+        .hero-phone .ph .material-icons-outlined { font-size: 36px; color: var(--gold); opacity: 0.4; margin-bottom: 10px; }
+        .hero-phone--light .ph .material-icons-outlined { color: #b08d1f; }
+        .hero-phone .ph p { font-size: 0.7rem; color: var(--text-muted); }
+        .hero-phone--light .ph p { color: #888; }
 
-        /* ===== PAIN ===== */
-        .pain-section { padding: 100px 0; background: linear-gradient(180deg, transparent 0%, rgba(20,20,24,0.5) 50%, transparent 100%); }
-        .pain-headline {
-            font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem);
-            color: var(--text-primary); text-align: center; line-height: 1.4; margin-bottom: 16px;
-        }
-        .pain-sub { text-align: center; color: var(--text-muted); font-size: 1.05rem; margin-bottom: 48px; font-weight: 300; }
-        .pain-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 800px; margin: 0 auto; }
-        .pain-item {
-            display: flex; gap: 16px; align-items: flex-start; padding: 24px;
-            border-radius: 16px; background: rgba(255,255,255,0.02);
-            border: 1px solid transparent; transition: all 0.3s ease;
-        }
-        .pain-item:hover { border-color: var(--border-subtle); background: rgba(255,255,255,0.03); }
-        .pain-icon {
-            flex-shrink: 0; width: 40px; height: 40px; border-radius: 10px;
-            background: rgba(212,175,53,0.08); border: 1px solid rgba(212,175,53,0.15);
-            display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1.1rem;
-        }
-        .pain-text { font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary); }
+        /* ============================================
+           PAIN
+        ============================================ */
+        .pain-section { padding: 64px 0; }
+        .pain-headline { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 2.8vw, 2.4rem); color: var(--text-primary); text-align: center; line-height: 1.4; margin-bottom: 12px; }
+        .pain-sub { text-align: center; color: var(--text-muted); font-size: 1rem; margin-bottom: 40px; font-weight: 300; }
+        .pain-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 780px; margin: 0 auto; }
+        .pain-item { display: flex; gap: 14px; align-items: flex-start; padding: 20px; border-radius: 14px; background: rgba(255,255,255,0.02); border: 1px solid transparent; transition: all 0.3s; }
+        .pain-item:hover { border-color: var(--border-subtle); }
+        .pain-icon { flex-shrink: 0; width: 36px; height: 36px; border-radius: 8px; background: rgba(212,175,53,0.08); border: 1px solid rgba(212,175,53,0.15); display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1rem; }
+        .pain-text { font-size: 0.9rem; line-height: 1.6; }
         .pain-text strong { color: var(--text-primary); font-weight: 600; }
 
         /* ============================================
-           CATEGORY — 2 cột luôn, Stoword nổi bật
+           CATEGORY
         ============================================ */
-        .category-section { padding: 80px 0; text-align: center; }
-        .category-box {
-            max-width: 700px; margin: 0 auto;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-        }
-        .cat-card {
-            padding: 32px 24px; border-radius: 20px; text-align: center;
-            transition: all 0.3s ease; position: relative;
-        }
-        /* Flashcard side — muted, dimmed */
-        .cat-card--old {
-            background: rgba(255,255,255,0.025);
-            border: 1px solid var(--border-subtle);
-        }
-        .cat-card--old .cat-label {
-            font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
-            color: var(--text-muted); margin-bottom: 16px; font-weight: 600;
-        }
-        .cat-card--old .cat-method {
-            font-family: 'Playfair Display', serif; font-size: 1.6rem;
-            color: rgba(255,255,255,0.5); margin-bottom: 8px; font-weight: 600;
-        }
-        .cat-card--old .cat-desc {
-            font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;
-        }
-        .cat-card--old .cat-icon {
-            font-size: 2rem; color: rgba(255,255,255,0.15); margin-bottom: 12px;
-        }
-
-        /* Stoword side — gold glow, prominent */
-        .cat-card--new {
-            background: linear-gradient(135deg, rgba(212,175,53,0.08), rgba(212,175,53,0.03));
-            border: 1.5px solid rgba(212,175,53,0.3);
-            box-shadow: 0 0 40px rgba(212,175,53,0.06), inset 0 0 40px rgba(212,175,53,0.02);
-        }
-        .cat-card--new .cat-label {
-            font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
-            color: var(--gold); margin-bottom: 16px; font-weight: 700;
-        }
-        .cat-card--new .cat-method {
-            font-family: 'Playfair Display', serif; font-size: 1.6rem;
-            margin-bottom: 8px; font-weight: 700;
-        }
-        .cat-card--new .cat-desc {
-            font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;
-        }
-        .cat-card--new .cat-icon {
-            font-size: 2rem; color: var(--gold); margin-bottom: 12px;
-        }
-
-        .category-bottom-text {
-            grid-column: 1 / -1;
-            margin-top: 8px; padding-top: 20px;
-            font-size: 0.95rem; color: var(--text-secondary); font-style: italic;
-        }
+        .category-section { padding: 56px 0; }
+        .category-box { max-width: 680px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .cat-card { padding: 28px 20px; border-radius: 18px; text-align: center; transition: all 0.3s; }
+        .cat-card--old { background: rgba(255,255,255,0.025); border: 1px solid var(--border-subtle); }
+        .cat-card--old .cat-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; font-weight: 600; }
+        .cat-card--old .cat-method { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: rgba(255,255,255,0.5); margin-bottom: 6px; font-weight: 600; }
+        .cat-card--old .cat-desc { font-size: 0.8rem; color: var(--text-muted); }
+        .cat-card--old .cat-icon { font-size: 1.8rem; color: rgba(255,255,255,0.15); margin-bottom: 10px; }
+        .cat-card--new { background: linear-gradient(135deg, rgba(212,175,53,0.08), rgba(212,175,53,0.03)); border: 1.5px solid rgba(212,175,53,0.3); box-shadow: 0 0 40px rgba(212,175,53,0.06); }
+        .cat-card--new .cat-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; font-weight: 700; }
+        .cat-card--new .cat-method { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 6px; font-weight: 700; }
+        .cat-card--new .cat-desc { font-size: 0.8rem; color: var(--text-secondary); }
+        .cat-card--new .cat-icon { font-size: 1.8rem; color: var(--gold); margin-bottom: 10px; }
+        .category-bottom-text { grid-column: 1 / -1; margin-top: 6px; padding-top: 16px; font-size: 0.9rem; color: var(--text-secondary); font-style: italic; text-align: center; }
         .category-bottom-text strong { color: var(--gold); font-style: normal; font-weight: 600; }
 
         /* ============================================
-           HOW IT WORKS — Carousel
+           HOW IT WORKS — Compact card carousel
+           Tab bar + card(ảnh trái, text phải) all in one block
         ============================================ */
-        .how-section { padding: 100px 0; }
-        .how-header { text-align: center; margin-bottom: 48px; }
-        .how-header h2 {
-            font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem);
-            color: var(--text-primary); margin-bottom: 12px;
-        }
-        .how-header p { color: var(--text-muted); font-size: 1.05rem; font-weight: 300; }
+        .how-section { padding: 64px 0; }
+        .how-header { text-align: center; margin-bottom: 32px; }
+        .how-header h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 2.8vw, 2.4rem); color: var(--text-primary); margin-bottom: 8px; }
+        .how-header p { color: var(--text-muted); font-size: 1rem; font-weight: 300; }
 
-        /* Progress tabs */
-        .how-tabs {
-            display: flex; gap: 8px; justify-content: center; margin-bottom: 40px;
+        /* The whole carousel wrapped in a card */
+        .how-card {
+            background: rgba(255,255,255,0.025);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            overflow: hidden;
         }
+
+        /* Tabs inside card top */
+        .how-tabs { display: flex; border-bottom: 1px solid var(--border-subtle); }
         .how-tab {
-            flex: 1; max-width: 160px; padding: 12px 8px; text-align: center;
-            cursor: pointer; border-radius: 12px; transition: all 0.3s ease;
-            background: rgba(255,255,255,0.02); border: 1px solid transparent;
-            position: relative; overflow: hidden;
+            flex: 1; padding: 14px 8px; text-align: center; cursor: pointer;
+            transition: all 0.3s; position: relative; background: transparent;
+            border-right: 1px solid var(--border-subtle);
         }
-        .how-tab.active {
-            background: rgba(212,175,53,0.06); border-color: var(--border-gold);
-        }
-        .how-tab .tab-num {
-            font-family: 'Playfair Display', serif; font-size: 1.4rem;
-            font-weight: 700; color: rgba(212,175,53,0.2); line-height: 1;
-            transition: color 0.3s;
-        }
+        .how-tab:last-child { border-right: none; }
+        .how-tab.active { background: rgba(212,175,53,0.04); }
+        .how-tab .tab-num { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: rgba(212,175,53,0.2); line-height: 1; transition: color 0.3s; }
         .how-tab.active .tab-num { color: rgba(212,175,53,0.5); }
-        .how-tab .tab-title {
-            font-size: 0.7rem; color: var(--text-muted); margin-top: 4px;
-            transition: color 0.3s; font-weight: 500;
-        }
+        .how-tab .tab-title { font-size: 0.65rem; color: var(--text-muted); margin-top: 2px; font-weight: 500; transition: color 0.3s; }
         .how-tab.active .tab-title { color: var(--gold); }
-        /* Progress bar at bottom of tab */
-        .how-tab .progress-bar {
-            position: absolute; bottom: 0; left: 0; height: 2px;
-            background: var(--gold); width: 0; transition: none;
-        }
+        .how-tab .progress-bar { position: absolute; bottom: 0; left: 0; height: 2px; background: var(--gold); width: 0; }
         .how-tab.active .progress-bar { animation: tabProgress 6s linear forwards; }
         @keyframes tabProgress { from { width: 0; } to { width: 100%; } }
 
-        /* Carousel viewport */
-        .how-carousel {
-            position: relative; overflow: hidden;
-        }
-        .how-track {
-            display: flex; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+        /* Carousel body */
+        .how-carousel { overflow: hidden; }
+        .how-track { display: flex; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
         .how-slide {
-            min-width: 100%; display: grid; grid-template-columns: 1fr 1fr;
-            gap: 48px; align-items: center; padding: 0 4px;
+            min-width: 100%;
+            display: grid; grid-template-columns: 180px 1fr;
+            gap: 28px; align-items: center;
+            padding: 28px;
         }
 
-        .slide-content .step-number {
-            font-family: 'Playfair Display', serif; font-size: 3.5rem;
-            font-weight: 700; color: rgba(212,175,53,0.12); line-height: 1; margin-bottom: 8px;
-        }
-        .slide-content .step-title {
-            font-family: 'Playfair Display', serif; font-size: 1.4rem;
-            color: var(--text-primary); margin-bottom: 16px; font-weight: 600; line-height: 1.35;
-        }
-        .slide-content .step-desc {
-            font-size: 0.95rem; color: var(--text-secondary); line-height: 1.8; font-weight: 300;
-        }
-        .slide-content .step-desc strong { color: var(--text-primary); font-weight: 500; }
-        .slide-content .step-note {
-            margin-top: 16px; font-size: 0.85rem; color: var(--text-muted);
-            font-style: italic; padding-left: 16px; border-left: 2px solid var(--border-gold);
-        }
-
-        .slide-visual { display: flex; justify-content: center; }
         .slide-phone {
-            width: 240px; aspect-ratio: 9/18.5; border-radius: 36px;
-            border: 2.5px solid rgba(255,255,255,0.1); background: var(--bg-dark);
-            overflow: hidden; box-shadow: 0 0 60px rgba(212,175,53,0.06), 0 30px 60px rgba(0,0,0,0.4);
+            width: 100%; aspect-ratio: 9/17; border-radius: 24px;
+            border: 2px solid rgba(255,255,255,0.08); background: var(--bg-dark);
+            overflow: hidden; box-shadow: 0 0 24px rgba(0,0,0,0.3);
         }
         .slide-phone img { width: 100%; height: 100%; object-fit: cover; }
         .slide-phone .placeholder {
             width: 100%; height: 100%; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; padding: 24px; text-align: center;
-            background: linear-gradient(180deg, #1a1d25 0%, #121215 100%);
+            align-items: center; justify-content: center; padding: 16px; text-align: center;
+            background: linear-gradient(180deg, #1a1d25, #121215);
         }
-        .slide-phone .placeholder .material-icons-outlined {
-            font-size: 36px; color: var(--gold); opacity: 0.4; margin-bottom: 10px;
-        }
-        .slide-phone .placeholder .ph-title { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
-        .slide-phone .placeholder .ph-desc { font-size: 0.65rem; color: rgba(255,255,255,0.2); margin-top: 2px; }
+        .slide-phone .placeholder .material-icons-outlined { font-size: 28px; color: var(--gold); opacity: 0.4; margin-bottom: 8px; }
+        .slide-phone .placeholder .ph-title { font-size: 0.7rem; color: var(--text-muted); font-weight: 500; }
+        .slide-phone .placeholder .ph-desc { font-size: 0.6rem; color: rgba(255,255,255,0.2); margin-top: 2px; }
+
+        .slide-content .step-number { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: rgba(212,175,53,0.12); line-height: 1; margin-bottom: 4px; }
+        .slide-content .step-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--text-primary); margin-bottom: 12px; font-weight: 600; line-height: 1.35; }
+        .slide-content .step-desc { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.75; font-weight: 300; }
+        .slide-content .step-desc strong { color: var(--text-primary); font-weight: 500; }
+        .slide-content .step-note { margin-top: 12px; font-size: 0.78rem; color: var(--text-muted); font-style: italic; padding-left: 12px; border-left: 2px solid var(--border-gold); }
 
         /* ============================================
            SCIENCE — Accordion
         ============================================ */
-        .science-section {
-            padding: 100px 0;
-            background: linear-gradient(180deg, transparent, rgba(20,20,24,0.5), transparent);
-        }
-        .science-header { text-align: center; margin-bottom: 56px; }
-        .science-header h2 {
-            font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem);
-            color: var(--text-primary); margin-bottom: 16px;
-        }
-        .science-header .intro {
-            max-width: 600px; margin: 0 auto; font-size: 1.05rem;
-            color: var(--text-secondary); font-weight: 300; line-height: 1.8;
-        }
-
-        .science-accordion {
-            max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px;
-        }
-        .sci-item {
-            border-radius: 16px; overflow: hidden;
-            background: rgba(255,255,255,0.025); border: 1px solid var(--border-subtle);
-            transition: all 0.3s ease;
-        }
-        .sci-item.open {
-            border-color: rgba(212,175,53,0.15);
-            background: rgba(255,255,255,0.04);
-        }
-        .sci-header {
-            display: flex; align-items: center; gap: 16px; padding: 20px 24px;
-            cursor: pointer; user-select: none; transition: all 0.2s;
-        }
+        .science-section { padding: 64px 0; }
+        .science-header { text-align: center; margin-bottom: 40px; }
+        .science-header h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 2.8vw, 2.4rem); color: var(--text-primary); margin-bottom: 14px; }
+        .science-header .intro { max-width: 580px; margin: 0 auto; font-size: 1rem; color: var(--text-secondary); font-weight: 300; line-height: 1.8; }
+        .science-accordion { max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+        .sci-item { border-radius: 14px; overflow: hidden; background: rgba(255,255,255,0.025); border: 1px solid var(--border-subtle); transition: all 0.3s; }
+        .sci-item.open { border-color: rgba(212,175,53,0.15); background: rgba(255,255,255,0.04); }
+        .sci-header { display: flex; align-items: center; gap: 14px; padding: 18px 20px; cursor: pointer; user-select: none; transition: all 0.2s; }
         .sci-header:hover { background: rgba(255,255,255,0.02); }
-        .sci-num {
-            font-family: 'Playfair Display', serif; font-size: 1.8rem;
-            font-weight: 700; color: rgba(212,175,53,0.2); line-height: 1;
-            min-width: 36px;
-        }
+        .sci-num { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: rgba(212,175,53,0.2); line-height: 1; min-width: 32px; }
         .sci-item.open .sci-num { color: rgba(212,175,53,0.5); }
-        .sci-title {
-            flex: 1; font-family: 'Playfair Display', serif; font-size: 1.05rem;
-            color: var(--text-primary); font-weight: 600; line-height: 1.35;
-        }
+        .sci-title { flex: 1; font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--text-primary); font-weight: 600; line-height: 1.35; }
         .sci-item.open .sci-title { color: var(--gold-light); }
-        .sci-toggle {
-            color: var(--text-muted); transition: transform 0.3s; font-size: 1.2rem;
-        }
+        .sci-toggle { color: var(--text-muted); transition: transform 0.3s; font-size: 1.1rem; }
         .sci-item.open .sci-toggle { transform: rotate(180deg); color: var(--gold); }
+        .sci-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .sci-item.open .sci-body { max-height: 400px; }
+        .sci-body-inner { padding: 0 20px 20px 66px; }
+        .sci-body-inner .body-text { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.75; font-weight: 300; margin-bottom: 12px; }
+        .sci-body-inner .stoword-link { font-size: 0.85rem; color: var(--gold); font-weight: 500; padding-left: 12px; border-left: 2px solid var(--border-gold); line-height: 1.6; margin-bottom: 10px; }
+        .sci-body-inner .source { font-size: 0.68rem; color: var(--text-muted); font-style: italic; opacity: 0.7; }
 
-        .sci-body {
-            max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .sci-item.open .sci-body { max-height: 500px; }
-        .sci-body-inner {
-            padding: 0 24px 24px; padding-left: 76px; /* align with title */
-        }
-        .sci-body-inner .body-text {
-            font-size: 0.92rem; color: var(--text-secondary); line-height: 1.75; font-weight: 300;
-            margin-bottom: 14px;
-        }
-        .sci-body-inner .stoword-link {
-            font-size: 0.88rem; color: var(--gold); font-weight: 500;
-            padding-left: 14px; border-left: 2px solid var(--border-gold); line-height: 1.6;
-            margin-bottom: 12px;
-        }
-        .sci-body-inner .source {
-            font-size: 0.7rem; color: var(--text-muted); font-style: italic; opacity: 0.7;
-        }
-
-        /* ===== SOCIAL PROOF ===== */
-        .proof-section { padding: 100px 0; }
-        .proof-stat { text-align: center; margin-bottom: 56px; }
-        .proof-stat .number {
-            font-family: 'Playfair Display', serif; font-size: clamp(3rem, 6vw, 5rem);
-            font-weight: 700; color: var(--text-primary); line-height: 1;
-        }
-        .proof-stat .label { font-size: 0.8rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-top: 8px; }
-
-        .testimonial-card {
-            max-width: 640px; margin: 0 auto; padding: 40px;
-            border-radius: 24px; background: rgba(255,255,255,0.025);
-            border: 1px solid var(--border-subtle); position: relative;
-        }
-        .testimonial-card .quote-mark {
-            position: absolute; top: -8px; left: 32px;
-            font-family: 'Playfair Display', serif; font-size: 5rem;
-            color: var(--gold); line-height: 1; opacity: 0.6;
-        }
-        .testimonial-card blockquote {
-            font-size: 1.1rem; font-style: italic; color: var(--text-secondary);
-            line-height: 1.8; font-weight: 300; margin-bottom: 24px; padding-top: 16px;
-        }
-        .testimonial-author { display: flex; align-items: center; gap: 16px; }
-        .testimonial-author .img-placeholder {
-            width: 48px; height: 48px; border-radius: 50%; background: var(--bg-card);
-            border: 2px solid var(--border-gold); display: flex; align-items: center;
-            justify-content: center; color: var(--gold); font-size: 1.2rem;
-        }
-        .testimonial-author .name { color: var(--text-primary); font-weight: 600; font-size: 0.95rem; }
-        .testimonial-author .title { color: var(--text-muted); font-size: 0.8rem; }
+        /* ============================================
+           SOCIAL PROOF
+        ============================================ */
+        .proof-section { padding: 64px 0; }
+        .proof-stat { text-align: center; margin-bottom: 40px; }
+        .proof-stat .number { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 700; color: var(--text-primary); line-height: 1; }
+        .proof-stat .label { font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-top: 6px; }
+        .testimonial-card { max-width: 600px; margin: 0 auto; padding: 32px; border-radius: 20px; background: rgba(255,255,255,0.025); border: 1px solid var(--border-subtle); position: relative; }
+        .testimonial-card .quote-mark { position: absolute; top: -6px; left: 28px; font-family: 'Playfair Display', serif; font-size: 4.5rem; color: var(--gold); line-height: 1; opacity: 0.6; }
+        .testimonial-card blockquote { font-size: 1rem; font-style: italic; color: var(--text-secondary); line-height: 1.8; font-weight: 300; margin-bottom: 20px; padding-top: 12px; }
+        .testimonial-author { display: flex; align-items: center; gap: 14px; }
+        .testimonial-author .img-placeholder { width: 44px; height: 44px; border-radius: 50%; background: var(--bg-card); border: 2px solid var(--border-gold); display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1.1rem; }
+        .testimonial-author .name { color: var(--text-primary); font-weight: 600; font-size: 0.9rem; }
+        .testimonial-author .title { color: var(--text-muted); font-size: 0.75rem; }
         .testimonial-stars { margin-left: auto; display: flex; gap: 2px; color: var(--gold); }
-        .testimonial-stars .material-icons-outlined { font-size: 18px; }
+        .testimonial-stars .material-icons-outlined { font-size: 16px; }
 
-        /* ===== FOUNDER ===== */
-        .founder-section {
-            padding: 80px 0;
-            background: linear-gradient(180deg, transparent, rgba(20,20,24,0.5), transparent);
-        }
-        .founder-card {
-            max-width: 800px; margin: 0 auto; display: grid;
-            grid-template-columns: auto 1fr; gap: 40px; align-items: center;
-        }
-        .founder-avatar {
-            width: 140px; height: 140px; border-radius: 50%; overflow: hidden;
-            border: 2px solid rgba(212,175,53,0.15); padding: 3px;
-        }
-        .founder-avatar img {
-            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
-            filter: grayscale(0.3); transition: filter 0.5s ease;
-        }
+        /* ============================================
+           FOUNDER
+        ============================================ */
+        .founder-section { padding: 56px 0; }
+        .founder-card { max-width: 760px; margin: 0 auto; display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: center; }
+        .founder-avatar { width: 120px; height: 120px; border-radius: 50%; overflow: hidden; border: 2px solid rgba(212,175,53,0.15); padding: 3px; }
+        .founder-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; filter: grayscale(0.3); transition: filter 0.5s; }
         .founder-avatar img:hover { filter: grayscale(0); }
-        .founder-avatar .placeholder {
-            width: 100%; height: 100%; border-radius: 50%; background: var(--bg-card);
-            display: flex; align-items: center; justify-content: center; color: var(--text-muted);
-        }
-        .founder-meta { margin-bottom: 16px; padding-left: 16px; border-left: 2px solid var(--border-gold); }
-        .founder-name { font-size: 1.15rem; font-weight: 600; color: var(--text-primary); }
-        .founder-role { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
-        .founder-bio { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.8; font-weight: 300; }
+        .founder-meta { margin-bottom: 12px; padding-left: 14px; border-left: 2px solid var(--border-gold); }
+        .founder-name { font-size: 1.1rem; font-weight: 600; color: var(--text-primary); }
+        .founder-role { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+        .founder-bio { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8; font-weight: 300; }
 
-        /* ===== FINAL CTA ===== */
-        .final-cta { padding: 100px 0 80px; text-align: center; }
-        .final-cta h2 {
-            font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem);
-            color: var(--text-primary); margin-bottom: 12px; line-height: 1.3;
-        }
-        .final-cta .sub { color: var(--text-muted); font-size: 1rem; margin-bottom: 40px; font-weight: 300; }
-        .final-cta .contrast-line {
-            max-width: 500px; margin: 0 auto 40px; font-size: 0.95rem;
-            color: var(--text-secondary); line-height: 1.8;
-        }
+        /* ============================================
+           FINAL CTA
+        ============================================ */
+        .final-cta { padding: 72px 0 60px; text-align: center; }
+        .final-cta h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 2.8vw, 2.4rem); color: var(--text-primary); margin-bottom: 10px; line-height: 1.3; }
+        .final-cta .sub { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 36px; font-weight: 300; }
+        .final-cta .contrast-line { max-width: 480px; margin: 0 auto 36px; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8; }
         .final-cta .contrast-line .old { text-decoration: line-through; color: var(--text-muted); }
         .final-cta .contrast-line .new { color: var(--gold); font-weight: 600; }
 
-        footer { padding: 32px 0; border-top: 1px solid var(--border-subtle); text-align: center; }
-        footer p { font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase; }
+        footer { padding: 28px 0; border-top: 1px solid var(--border-subtle); text-align: center; }
+        footer p { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase; }
 
-        /* ===== ANIMATIONS ===== */
-        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        /* === ANIMATIONS === */
+        .fade-in { opacity: 0; transform: translateY(24px); transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
         .fade-in-delay-1 { transition-delay: 0.1s; }
         .fade-in-delay-2 { transition-delay: 0.2s; }
         .fade-in-delay-3 { transition-delay: 0.3s; }
 
-        /* ===== RESPONSIVE ===== */
+        /* === RESPONSIVE === */
         @media (max-width: 968px) {
             .hero-grid { grid-template-columns: 1fr; text-align: center; }
-            .hero-sub { margin: 0 auto 40px; }
+            .hero-sub { margin: 0 auto 36px; }
             .hero-cta-group { justify-content: center; }
-            .phone-mockup { width: 260px; }
-            .how-slide { grid-template-columns: 1fr; gap: 28px; text-align: center; }
-            .slide-visual { order: -1; }
-            .slide-content .step-note { text-align: left; }
+            .hero-phones { height: 400px; }
+            .hero-phone { width: 180px; }
+            .how-slide { grid-template-columns: 160px 1fr; gap: 20px; padding: 20px; }
             .pain-grid { grid-template-columns: 1fr; }
             .founder-card { grid-template-columns: 1fr; text-align: center; justify-items: center; }
             .founder-meta { border-left: none; padding-left: 0; text-align: center; }
         }
-
         @media (max-width: 640px) {
-            .hero { padding: 120px 0 60px; min-height: auto; }
-            .hero-headline { font-size: 1.8rem; }
+            .hero { padding: 110px 0 50px; }
+            .hero-headline { font-size: 1.7rem; }
+            .hero-phones { height: 340px; }
+            .hero-phone { width: 155px; }
+            .hero-phone--dark { transform: translateX(-62%); }
+            .hero-phone--light { transform: translateX(-18%); top: 30px; }
             .hero-cta-group { flex-direction: column; align-items: stretch; }
             .btn-gold, .btn-outline { justify-content: center; }
-            .slide-phone { width: 200px; }
-            .how-tab .tab-title { font-size: 0.6rem; }
+            /* How it works: ảnh nhỏ hơn, vẫn giữ 2 cột */
+            .how-slide { grid-template-columns: 120px 1fr; gap: 16px; padding: 16px; }
+            .slide-content .step-number { font-size: 1.8rem; }
+            .slide-content .step-title { font-size: 1rem; }
+            .slide-content .step-desc { font-size: 0.82rem; }
             .how-tab { padding: 10px 4px; }
-            .how-tab .tab-num { font-size: 1.1rem; }
-            /* Category: luôn 2 cột */
-            .cat-card { padding: 24px 16px; }
-            .cat-card--old .cat-method, .cat-card--new .cat-method { font-size: 1.3rem; }
-            .sci-body-inner { padding-left: 24px; }
+            .how-tab .tab-num { font-size: 1rem; }
+            .how-tab .tab-title { font-size: 0.55rem; }
+            .cat-card { padding: 20px 14px; }
+            .cat-card--old .cat-method, .cat-card--new .cat-method { font-size: 1.2rem; }
+            .sci-body-inner { padding-left: 20px; }
+        }
+        @media (max-width: 420px) {
+            .how-slide { grid-template-columns: 100px 1fr; gap: 12px; padding: 14px; }
+            .slide-content .step-note { font-size: 0.72rem; }
         }
     </style>
 </head>
 <body>
-
 <div class="cosmic-bg"></div>
 <div class="stars"></div>
 
 <!-- NAV -->
-<nav>
-    <div class="inner">
-        <div class="logo">Stoword.</div>
-        <a href="https://stoword.com" class="btn-gold btn-gold-sm">Trải nghiệm miễn phí</a>
-    </div>
-</nav>
+<nav><div class="inner"><div class="logo">Stoword.</div><a href="https://stoword.com" class="btn-gold btn-gold-sm">Trải nghiệm miễn phí</a></div></nav>
 
 <!-- HERO -->
 <section class="hero">
     <div class="container">
         <div class="hero-grid">
             <div>
-                <div class="hero-headline fade-in">
-                    Mỗi từ vựng bạn muốn nhớ,<br>Stoword biến nó thành <em>một câu chuyện của riêng bạn.</em>
-                </div>
-                <p class="hero-sub fade-in fade-in-delay-1">
-                    Bạn không chỉ đọc nghĩa rồi quên — bạn sống trong ngữ cảnh, bạn cảm nhận từ qua cảm xúc, và não bạn tự bật từ ra khi cần viết và nói. Đó là cách ký ức thực sự hoạt động.
-                </p>
+                <div class="hero-headline fade-in">Mỗi từ vựng bạn muốn nhớ,<br>Stoword biến nó thành <em>một câu chuyện của riêng bạn.</em></div>
+                <p class="hero-sub fade-in fade-in-delay-1">Bạn không chỉ đọc nghĩa rồi quên — bạn sống trong ngữ cảnh, bạn cảm nhận từ qua cảm xúc, và não bạn tự bật từ ra khi cần viết và nói. Đó là cách ký ức thực sự hoạt động.</p>
                 <div class="hero-cta-group fade-in fade-in-delay-2">
-                    <a href="https://stoword.com" class="btn-gold">
-                        Trải nghiệm miễn phí
-                        <span class="material-icons-outlined" style="font-size:18px;">arrow_forward</span>
-                    </a>
-                    <a href="#how-it-works" class="btn-outline">
-                        Xem cách hoạt động
-                        <span class="material-icons-outlined" style="font-size:16px;">expand_more</span>
-                    </a>
+                    <a href="https://stoword.com" class="btn-gold">Trải nghiệm miễn phí <span class="material-icons-outlined" style="font-size:18px;">arrow_forward</span></a>
+                    <a href="#how-it-works" class="btn-outline">Xem cách hoạt động <span class="material-icons-outlined" style="font-size:16px;">expand_more</span></a>
                 </div>
             </div>
-            <div class="fade-in fade-in-delay-3" style="display:flex;justify-content:center;">
-                <div class="phone-mockup">
-                    <div class="notch"></div>
-                    <!-- THAY: <img src="images/hero-story-card.png" alt="Stoword Story Card"> -->
-                    <div class="phone-placeholder">
-                        <span class="material-icons-outlined icon">auto_stories</span>
-                        <p><strong>hero-story-card.png</strong></p>
-                        <p style="margin-top:8px;font-size:0.65rem;opacity:0.5;">Thẻ story với từ vựng highlight</p>
+            <div class="fade-in fade-in-delay-3">
+                <div class="hero-phones">
+                    <div class="hero-phone hero-phone--dark">
+                        <div class="notch"></div>
+                        <img src="images/hero-dark.jpg" alt="Stoword Dark Mode">
+                    </div>
+                    <div class="hero-phone hero-phone--light">
+                        <div class="notch"></div>
+                        <img src="images/hero-light.jpg" alt="Stoword Light Mode">
                     </div>
                 </div>
             </div>
@@ -563,184 +359,86 @@
     </div>
 </section>
 
+<div class="section-sep"></div>
+
 <!-- PAIN -->
-<section class="pain-section">
+<section class="pain-section bg-alt">
     <div class="container">
         <div class="section-label fade-in" style="text-align:center;">Có phải bạn đang gặp vấn đề này?</div>
-        <h2 class="pain-headline fade-in">
-            Bạn biết hàng trăm từ.<br>Nhưng khi cần nói — <em style="color:var(--gold);font-style:italic;">não bạn trống rỗng.</em>
-        </h2>
+        <h2 class="pain-headline fade-in">Bạn biết hàng trăm từ.<br>Nhưng khi cần nói — <em style="color:var(--gold);font-style:italic;">não bạn trống rỗng.</em></h2>
         <p class="pain-sub fade-in">Không chỉ trong phòng thi. Cả lúc viết email, thảo luận nhóm, phỏng vấn việc làm.</p>
         <div class="pain-grid">
-            <div class="pain-item fade-in">
-                <div class="pain-icon"><span class="material-icons-outlined">edit_note</span></div>
-                <div class="pain-text"><strong>Biết rõ ý muốn diễn đạt</strong>, nhưng không nhớ ra từ nào phù hợp. Cuối cùng dùng những từ "an toàn" đã biết từ lâu.</div>
-            </div>
-            <div class="pain-item fade-in fade-in-delay-1">
-                <div class="pain-icon"><span class="material-icons-outlined">visibility</span></div>
-                <div class="pain-text"><strong>Nhìn từ thì quen lắm</strong>, chắc chắn đã học rồi. Nhưng đến lúc viết — không thể nào gọi nó ra được.</div>
-            </div>
-            <div class="pain-item fade-in fade-in-delay-2">
-                <div class="pain-icon"><span class="material-icons-outlined">menu_book</span></div>
-                <div class="pain-text"><strong>Ghi sổ tay hàng nghìn từ</strong>, highlight đủ màu, ôn đi ôn lại. Nhưng khi cần viết essay hay thuyết trình — vẫn không dùng được.</div>
-            </div>
-            <div class="pain-item fade-in fade-in-delay-3">
-                <div class="pain-icon"><span class="material-icons-outlined">school</span></div>
-                <div class="pain-text"><strong>Điểm thi đọc-nghe cao</strong>, nhưng viết và nói luôn thấp hơn. IELTS, PTE, TOEIC — đề nào cũng vậy.</div>
-            </div>
+            <div class="pain-item fade-in"><div class="pain-icon"><span class="material-icons-outlined">edit_note</span></div><div class="pain-text"><strong>Biết rõ ý muốn diễn đạt</strong>, nhưng không nhớ ra từ nào phù hợp. Cuối cùng dùng những từ "an toàn" đã biết từ lâu.</div></div>
+            <div class="pain-item fade-in fade-in-delay-1"><div class="pain-icon"><span class="material-icons-outlined">visibility</span></div><div class="pain-text"><strong>Nhìn từ thì quen lắm</strong>, chắc chắn đã học rồi. Nhưng đến lúc viết — không thể nào gọi nó ra được.</div></div>
+            <div class="pain-item fade-in fade-in-delay-2"><div class="pain-icon"><span class="material-icons-outlined">menu_book</span></div><div class="pain-text"><strong>Ghi sổ tay hàng nghìn từ</strong>, highlight đủ màu, ôn đi ôn lại. Nhưng khi cần viết essay hay thuyết trình — vẫn không dùng được.</div></div>
+            <div class="pain-item fade-in fade-in-delay-3"><div class="pain-icon"><span class="material-icons-outlined">school</span></div><div class="pain-text"><strong>Điểm thi đọc-nghe cao</strong>, nhưng viết và nói luôn thấp hơn. IELTS, PTE, TOEIC — đề nào cũng vậy.</div></div>
         </div>
     </div>
 </section>
 
-<!-- CATEGORY — 2 cards side by side always -->
+<div class="section-sep"></div>
+
+<!-- CATEGORY -->
 <section class="category-section">
     <div class="container">
         <div class="category-box fade-in">
-            <!-- Flashcard — dimmed -->
-            <div class="cat-card cat-card--old">
-                <div class="cat-icon"><span class="material-icons-outlined">style</span></div>
-                <div class="cat-label">Flashcard truyền thống</div>
-                <div class="cat-method">Nhận diện</div>
-                <div class="cat-desc">Nhìn thấy từ → "À, biết rồi"</div>
-            </div>
-            <!-- Stoword — gold glow -->
-            <div class="cat-card cat-card--new">
-                <div class="cat-icon"><span class="material-icons-outlined">bolt</span></div>
-                <div class="cat-label">Stoword</div>
-                <div class="cat-method gradient-gold-text">Truy xuất</div>
-                <div class="cat-desc">Cần dùng từ → Não tự bật ra</div>
-            </div>
-            <div class="category-bottom-text">
-                Đó là sự khác biệt giữa <strong>"nhìn quen"</strong> và <strong>"dùng được"</strong>.
-            </div>
+            <div class="cat-card cat-card--old"><div class="cat-icon"><span class="material-icons-outlined">style</span></div><div class="cat-label">Flashcard truyền thống</div><div class="cat-method">Nhận diện</div><div class="cat-desc">Nhìn thấy từ → "À, biết rồi"</div></div>
+            <div class="cat-card cat-card--new"><div class="cat-icon"><span class="material-icons-outlined">bolt</span></div><div class="cat-label">Stoword</div><div class="cat-method gradient-gold-text">Truy xuất</div><div class="cat-desc">Cần dùng từ → Não tự bật ra</div></div>
+            <div class="category-bottom-text">Đó là sự khác biệt giữa <strong>"nhìn quen"</strong> và <strong>"dùng được"</strong>.</div>
         </div>
     </div>
 </section>
 
-<!-- HOW IT WORKS — Carousel -->
-<section class="how-section" id="how-it-works">
+<div class="section-sep"></div>
+
+<!-- HOW IT WORKS -->
+<section class="how-section bg-alt" id="how-it-works">
     <div class="container">
         <div class="how-header">
             <div class="section-label">Cách Stoword hoạt động</div>
             <h2 class="fade-in">Đơn giản. Chỉ 4 bước.</h2>
             <p class="fade-in fade-in-delay-1">Không cần kế hoạch phức tạp. Không cần ghi nhớ máy móc.</p>
         </div>
-
-        <!-- Step tabs -->
-        <div class="how-tabs fade-in">
-            <div class="how-tab active" data-step="0">
-                <div class="tab-num">01</div>
-                <div class="tab-title">Nhập từ</div>
-                <div class="progress-bar"></div>
+        <div class="how-card fade-in">
+            <div class="how-tabs">
+                <div class="how-tab active" data-step="0"><div class="tab-num">01</div><div class="tab-title">Nhập từ</div><div class="progress-bar"></div></div>
+                <div class="how-tab" data-step="1"><div class="tab-num">02</div><div class="tab-title">Đọc story</div><div class="progress-bar"></div></div>
+                <div class="how-tab" data-step="2"><div class="tab-num">03</div><div class="tab-title">Ôn tập</div><div class="progress-bar"></div></div>
+                <div class="how-tab" data-step="3"><div class="tab-num">04</div><div class="tab-title">Deep Dive</div><div class="progress-bar"></div></div>
             </div>
-            <div class="how-tab" data-step="1">
-                <div class="tab-num">02</div>
-                <div class="tab-title">Đọc story</div>
-                <div class="progress-bar"></div>
-            </div>
-            <div class="how-tab" data-step="2">
-                <div class="tab-num">03</div>
-                <div class="tab-title">Ôn tập</div>
-                <div class="progress-bar"></div>
-            </div>
-            <div class="how-tab" data-step="3">
-                <div class="tab-num">04</div>
-                <div class="tab-title">Deep Dive</div>
-                <div class="progress-bar"></div>
-            </div>
-        </div>
-
-        <!-- Carousel -->
-        <div class="how-carousel fade-in">
-            <div class="how-track" id="howTrack">
-                <!-- Slide 1: Nhập từ -->
-                <div class="how-slide">
-                    <div class="slide-content">
-                        <div class="step-number">01</div>
-                        <div class="step-title">Nhập từ bạn muốn nhớ</div>
-                        <div class="step-desc">
-                            Bạn gặp từ <strong>"mitigate"</strong> trong bài đọc, trong lớp, hay trong email từ sếp. Bạn biết nghĩa nhưng chưa bao giờ tự dùng được nó.<br><br>
-                            Gõ từ đó vào Stoword. Chỉ vậy thôi.
-                        </div>
-                    </div>
-                    <div class="slide-visual">
-                        <div class="slide-phone">
+            <div class="how-carousel">
+                <div class="how-track" id="howTrack">
+                    <!-- 01 -->
+                    <div class="how-slide">
+                        <div class="slide-visual"><div class="slide-phone">
                             <!-- THAY: <img src="images/step1-input-word.png" alt="Nhập từ"> -->
-                            <div class="placeholder">
-                                <span class="material-icons-outlined">keyboard</span>
-                                <div class="ph-title">step1-input-word.png</div>
-                                <div class="ph-desc">Màn hình nhập từ vựng</div>
-                            </div>
-                        </div>
+                            <div class="placeholder"><span class="material-icons-outlined">keyboard</span><div class="ph-title">step1-input-word.png</div><div class="ph-desc">Màn hình nhập từ vựng</div></div>
+                        </div></div>
+                        <div class="slide-content"><div class="step-number">01</div><div class="step-title">Nhập từ bạn muốn nhớ</div><div class="step-desc">Bạn gặp từ <strong>"mitigate"</strong> trong bài đọc, trong lớp, hay trong email từ sếp. Bạn biết nghĩa nhưng chưa bao giờ tự dùng được nó.<br><br>Gõ từ đó vào Stoword. Chỉ vậy thôi.</div></div>
                     </div>
-                </div>
-
-                <!-- Slide 2: Đọc story (gộp tạo + đọc) -->
-                <div class="how-slide">
-                    <div class="slide-content">
-                        <div class="step-number">02</div>
-                        <div class="step-title">App tạo câu chuyện riêng cho bạn — và bạn sống trong đó.</div>
-                        <div class="step-desc">
-                            Trong vài giây, Stoword tạo ra <strong>một câu chuyện ngắn mà bạn là nhân vật chính</strong> — có bạn bè bạn, thành phố bạn sống, sở thích bạn yêu. Và trong câu chuyện đó, bạn buộc phải đối mặt với tình huống cần dùng từ "mitigate".<br><br>
-                            Bạn không học nghĩa từ — bạn <strong>trải qua một ngữ cảnh có áp lực, có cảm xúc, có cao trào</strong>. Não bộ ghi nhớ trải nghiệm sâu hơn gấp nhiều lần so với một dòng định nghĩa.
-                        </div>
-                        <div class="step-note">Mỗi từ, mỗi lần — một câu chuyện hoàn toàn mới. Không ai giống ai.</div>
-                    </div>
-                    <div class="slide-visual">
-                        <div class="slide-phone">
+                    <!-- 02 -->
+                    <div class="how-slide">
+                        <div class="slide-visual"><div class="slide-phone">
                             <!-- THAY: <img src="images/step2-story-card.png" alt="Đọc story"> -->
-                            <div class="placeholder">
-                                <span class="material-icons-outlined">auto_stories</span>
-                                <div class="ph-title">step2-story-card.png</div>
-                                <div class="ph-desc">Thẻ story cá nhân hóa</div>
-                            </div>
-                        </div>
+                            <div class="placeholder"><span class="material-icons-outlined">auto_stories</span><div class="ph-title">step2-story-card.png</div><div class="ph-desc">Thẻ story cá nhân hóa</div></div>
+                        </div></div>
+                        <div class="slide-content"><div class="step-number">02</div><div class="step-title">App tạo câu chuyện riêng cho bạn — và bạn sống trong đó.</div><div class="step-desc">Trong vài giây, Stoword tạo ra <strong>một câu chuyện ngắn mà bạn là nhân vật chính</strong> — có bạn bè bạn, thành phố bạn sống, sở thích bạn yêu. Bạn buộc phải đối mặt với tình huống cần dùng từ "mitigate".<br><br>Bạn không học nghĩa từ — bạn <strong>trải qua ngữ cảnh có áp lực, có cảm xúc, có cao trào</strong>. Não ghi nhớ trải nghiệm sâu hơn gấp nhiều lần so với định nghĩa.</div><div class="step-note">Mỗi từ, mỗi lần — một câu chuyện hoàn toàn mới.</div></div>
                     </div>
-                </div>
-
-                <!-- Slide 3: Ôn tập -->
-                <div class="how-slide">
-                    <div class="slide-content">
-                        <div class="step-number">03</div>
-                        <div class="step-title">Mỗi ngày, ôn lại — não bạn tự nhớ, không ai gợi ý.</div>
-                        <div class="step-desc">
-                            Khi ôn tập, <strong>từ vựng sẽ bị ẩn đi</strong>. Bạn đọc lại bối cảnh câu chuyện và phải tự gọi từ ra từ trong đầu. Không gợi ý A-B-C-D. Không đáp án có sẵn.<br><br>
-                            App tự tính toán thời điểm tối ưu để nhắc bạn ôn — đúng lúc não sắp quên nhưng vẫn còn dấu vết ký ức. Không ôn quá sớm, không ôn quá muộn.
-                        </div>
-                        <div class="step-note">Retrieval Practice — hiệu quả gấp 3 lần đọc lại theo nghiên cứu đại học Purdue.</div>
+                    <!-- 03 -->
+                    <div class="how-slide">
+                        <div class="slide-visual"><div class="slide-phone">
+                            <!-- THAY: <img src="images/step3-review-blur.png" alt="Ôn tập"> -->
+                            <div class="placeholder"><span class="material-icons-outlined">blur_on</span><div class="ph-title">step3-review-blur.png</div><div class="ph-desc">Thẻ review với từ bị mờ</div></div>
+                        </div></div>
+                        <div class="slide-content"><div class="step-number">03</div><div class="step-title">Mỗi ngày, ôn lại — não bạn tự nhớ, không ai gợi ý.</div><div class="step-desc">Khi ôn tập, <strong>từ vựng sẽ bị ẩn đi</strong>. Bạn đọc lại bối cảnh câu chuyện và phải tự gọi từ ra từ trong đầu. Không gợi ý A-B-C-D.<br><br>App tự tính toán thời điểm tối ưu để nhắc bạn ôn — đúng lúc não sắp quên nhưng vẫn còn dấu vết ký ức.</div><div class="step-note">Retrieval Practice — hiệu quả gấp 3 lần đọc lại theo nghiên cứu đại học Purdue.</div></div>
                     </div>
-                    <div class="slide-visual">
-                        <div class="slide-phone">
-                            <!-- THAY: <img src="images/step3-review-blur.png" alt="Review"> -->
-                            <div class="placeholder">
-                                <span class="material-icons-outlined">blur_on</span>
-                                <div class="ph-title">step3-review-blur.png</div>
-                                <div class="ph-desc">Thẻ review với từ bị mờ</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Slide 4: Deep Dive -->
-                <div class="how-slide">
-                    <div class="slide-content">
-                        <div class="step-number">04</div>
-                        <div class="step-title">Deep Dive — hiểu từ đến tận gốc rễ.</div>
-                        <div class="step-desc">
-                            Story giúp bạn nhớ. Nhưng muốn <strong>dùng từ thật chính xác</strong>, bạn cần hiểu sâu hơn. Deep Dive cho bạn ngay lập tức: định nghĩa chuẩn, từ đồng nghĩa, collocations thường gặp, và các câu ví dụ trong ngữ cảnh thực.<br><br>
-                            Bạn còn có thể <strong>thêm câu ví dụ của riêng mình</strong> — từ đề thi PTE, IELTS, hay câu hay trong sách bạn đang đọc. Biến mỗi từ thành một bộ sưu tập cá nhân.
-                        </div>
-                        <div class="step-note">Nội dung Deep Dive được lưu cache — xem lần đầu chờ vài giây, những lần sau mở ra tức thì.</div>
-                    </div>
-                    <div class="slide-visual">
-                        <div class="slide-phone">
+                    <!-- 04 -->
+                    <div class="how-slide">
+                        <div class="slide-visual"><div class="slide-phone">
                             <!-- THAY: <img src="images/step4-deep-dive.png" alt="Deep Dive"> -->
-                            <div class="placeholder">
-                                <span class="material-icons-outlined">layers</span>
-                                <div class="ph-title">step4-deep-dive.png</div>
-                                <div class="ph-desc">Deep Dive: synonyms, collocations, examples</div>
-                            </div>
-                        </div>
+                            <div class="placeholder"><span class="material-icons-outlined">layers</span><div class="ph-title">step4-deep-dive.png</div><div class="ph-desc">Synonyms, collocations, examples</div></div>
+                        </div></div>
+                        <div class="slide-content"><div class="step-number">04</div><div class="step-title">Deep Dive — hiểu từ đến tận gốc rễ.</div><div class="step-desc">Story giúp bạn nhớ. Nhưng muốn <strong>dùng từ thật chính xác</strong>, bạn cần hiểu sâu hơn. Deep Dive cho bạn: định nghĩa chuẩn, từ đồng nghĩa, collocations thường gặp, và câu ví dụ trong ngữ cảnh thực.<br><br>Bạn còn có thể <strong>thêm câu ví dụ của riêng mình</strong> — từ đề thi PTE, IELTS, hay câu hay trong sách bạn đang đọc.</div><div class="step-note">Nội dung Deep Dive được lưu cache — lần đầu chờ vài giây, những lần sau mở tức thì.</div></div>
                     </div>
                 </div>
             </div>
@@ -748,252 +446,107 @@
     </div>
 </section>
 
-<!-- SCIENCE — Accordion -->
+<div class="section-sep"></div>
+
+<!-- SCIENCE -->
 <section class="science-section">
     <div class="container">
         <div class="science-header">
             <div class="section-label">Phương pháp Stoword</div>
             <h2 class="fade-in">Não bộ không nhớ dữ liệu.<br>Não nhớ trải nghiệm.</h2>
-            <p class="intro fade-in fade-in-delay-1">
-                Stoword được xây dựng trên 4 nguyên lý khoa học thần kinh đã được kiểm chứng — không phải ý kiến cá nhân, mà là kết quả từ hàng thập kỷ nghiên cứu về trí nhớ con người.
-            </p>
+            <p class="intro fade-in fade-in-delay-1">Stoword được xây dựng trên 4 nguyên lý khoa học thần kinh đã được kiểm chứng — không phải ý kiến cá nhân, mà là kết quả từ hàng thập kỷ nghiên cứu về trí nhớ con người.</p>
         </div>
-
         <div class="science-accordion fade-in">
-            <!-- 1 -->
-            <div class="sci-item open">
-                <div class="sci-header" onclick="toggleSci(this)">
-                    <div class="sci-num">01</div>
-                    <div class="sci-title">Não nhớ tốt hơn khi câu chuyện kể về chính bạn</div>
-                    <span class="material-icons-outlined sci-toggle">expand_more</span>
-                </div>
-                <div class="sci-body">
-                    <div class="sci-body-inner">
-                        <div class="body-text">Khi thông tin liên quan đến bản thân — tên bạn, thành phố bạn sống, sở thích của bạn — não bộ tự động xếp nó vào vùng ký ức ưu tiên. Bạn không cần "cố gắng nhớ" vì não đã chọn nhớ nó cho bạn.</div>
-                        <div class="stoword-link">Vì vậy, mỗi câu chuyện trên Stoword đều mang tên bạn, có bạn bè bạn, và diễn ra ở nơi bạn quen thuộc.</div>
-                        <div class="source">Rogers, Kuiper & Kirker (1977) — Self-Reference Effect trong Mã hóa Ký ức</div>
-                    </div>
-                </div>
-            </div>
-            <!-- 2 -->
-            <div class="sci-item">
-                <div class="sci-header" onclick="toggleSci(this)">
-                    <div class="sci-num">02</div>
-                    <div class="sci-title">Cảm xúc là chất keo gắn kết ký ức</div>
-                    <span class="material-icons-outlined sci-toggle">expand_more</span>
-                </div>
-                <div class="sci-body">
-                    <div class="sci-body-inner">
-                        <div class="body-text">Những gì khiến bạn hồi hộp, bất ngờ, áp lực, hoặc xúc động sẽ được hạch hạnh nhân (amygdala) đánh dấu là "quan trọng" và lưu trữ lâu hơn gấp nhiều lần so với thông tin trung tính.</div>
-                        <div class="stoword-link">Mỗi câu chuyện trên Stoword đều có cao trào, có xung đột — từ vựng không nằm lẻ loi mà được neo vào cảm xúc thực.</div>
-                        <div class="source">Cahill & McGaugh (1995) — Cảm xúc và Sự Củng cố Ký ức dài hạn</div>
-                    </div>
-                </div>
-            </div>
-            <!-- 3 -->
-            <div class="sci-item">
-                <div class="sci-header" onclick="toggleSci(this)">
-                    <div class="sci-num">03</div>
-                    <div class="sci-title">Tự nhớ lại hiệu quả gấp 3 lần đọc lại</div>
-                    <span class="material-icons-outlined sci-toggle">expand_more</span>
-                </div>
-                <div class="sci-body">
-                    <div class="sci-body-inner">
-                        <div class="body-text">Đọc đi đọc lại chỉ tạo cảm giác "quen mặt" — bạn tưởng mình nhớ nhưng thực ra không thể gọi từ ra khi cần. Ngược lại, khi buộc phải tự lôi thông tin ra từ trí nhớ, đường dẫn thần kinh được gia cố mạnh hơn rất nhiều.</div>
-                        <div class="stoword-link">Stoword ẩn từ vựng đi khi ôn tập. Bạn phải tự gọi từ ra — đó là luyện tập truy xuất, không phải đọc lại.</div>
-                        <div class="source">Karpicke & Roediger (2008) — Testing Effect, Đại học Purdue</div>
-                    </div>
-                </div>
-            </div>
-            <!-- 4 -->
-            <div class="sci-item">
-                <div class="sci-header" onclick="toggleSci(this)">
-                    <div class="sci-num">04</div>
-                    <div class="sci-title">Ôn đúng lúc não sắp quên</div>
-                    <span class="material-icons-outlined sci-toggle">expand_more</span>
-                </div>
-                <div class="sci-body">
-                    <div class="sci-body-inner">
-                        <div class="body-text">Nếu ôn quá sớm — não chưa cần nên lãng phí công sức. Nếu ôn quá muộn — ký ức đã bay mất. Có một "điểm rơi" tối ưu nằm giữa hai thái cực đó — nơi ôn tập tạo ra hiệu quả lớn nhất.</div>
-                        <div class="stoword-link">Stoword tự tính toán thời điểm ôn cho từng từ, từng người. Bạn chỉ cần mở app — mọi thứ đã sẵn sàng.</div>
-                        <div class="source">Ebbinghaus (1885) — Đường cong Quên lãng & Lặp lại Ngắt quãng</div>
-                    </div>
-                </div>
-            </div>
+            <div class="sci-item open"><div class="sci-header" onclick="toggleSci(this)"><div class="sci-num">01</div><div class="sci-title">Não nhớ tốt hơn khi câu chuyện kể về chính bạn</div><span class="material-icons-outlined sci-toggle">expand_more</span></div><div class="sci-body"><div class="sci-body-inner"><div class="body-text">Khi thông tin liên quan đến bản thân — tên bạn, thành phố bạn sống, sở thích của bạn — não bộ tự động xếp nó vào vùng ký ức ưu tiên. Bạn không cần "cố gắng nhớ" vì não đã chọn nhớ nó cho bạn.</div><div class="stoword-link">Vì vậy, mỗi câu chuyện trên Stoword đều mang tên bạn, có bạn bè bạn, và diễn ra ở nơi bạn quen thuộc.</div><div class="source">Rogers, Kuiper & Kirker (1977) — Self-Reference Effect trong Mã hóa Ký ức</div></div></div></div>
+            <div class="sci-item"><div class="sci-header" onclick="toggleSci(this)"><div class="sci-num">02</div><div class="sci-title">Cảm xúc là chất keo gắn kết ký ức</div><span class="material-icons-outlined sci-toggle">expand_more</span></div><div class="sci-body"><div class="sci-body-inner"><div class="body-text">Những gì khiến bạn hồi hộp, bất ngờ, áp lực, hoặc xúc động sẽ được hạch hạnh nhân (amygdala) đánh dấu là "quan trọng" và lưu trữ lâu hơn gấp nhiều lần so với thông tin trung tính.</div><div class="stoword-link">Mỗi câu chuyện trên Stoword đều có cao trào, có xung đột — từ vựng không nằm lẻ loi mà được neo vào cảm xúc thực.</div><div class="source">Cahill & McGaugh (1995) — Cảm xúc và Sự Củng cố Ký ức dài hạn</div></div></div></div>
+            <div class="sci-item"><div class="sci-header" onclick="toggleSci(this)"><div class="sci-num">03</div><div class="sci-title">Tự nhớ lại hiệu quả gấp 3 lần đọc lại</div><span class="material-icons-outlined sci-toggle">expand_more</span></div><div class="sci-body"><div class="sci-body-inner"><div class="body-text">Đọc đi đọc lại chỉ tạo cảm giác "quen mặt" — bạn tưởng mình nhớ nhưng thực ra không thể gọi từ ra khi cần. Ngược lại, khi buộc phải tự lôi thông tin ra từ trí nhớ, đường dẫn thần kinh được gia cố mạnh hơn rất nhiều.</div><div class="stoword-link">Stoword ẩn từ vựng đi khi ôn tập. Bạn phải tự gọi từ ra — đó là luyện tập truy xuất, không phải đọc lại.</div><div class="source">Karpicke & Roediger (2008) — Testing Effect, Đại học Purdue</div></div></div></div>
+            <div class="sci-item"><div class="sci-header" onclick="toggleSci(this)"><div class="sci-num">04</div><div class="sci-title">Ôn đúng lúc não sắp quên</div><span class="material-icons-outlined sci-toggle">expand_more</span></div><div class="sci-body"><div class="sci-body-inner"><div class="body-text">Nếu ôn quá sớm — não chưa cần nên lãng phí công sức. Nếu ôn quá muộn — ký ức đã bay mất. Có một "điểm rơi" tối ưu nằm giữa hai thái cực đó — nơi ôn tập tạo ra hiệu quả lớn nhất.</div><div class="stoword-link">Stoword tự tính toán thời điểm ôn cho từng từ, từng người. Bạn chỉ cần mở app — mọi thứ đã sẵn sàng.</div><div class="source">Ebbinghaus (1885) — Đường cong Quên lãng & Lặp lại Ngắt quãng</div></div></div></div>
         </div>
     </div>
 </section>
+
+<div class="section-sep"></div>
 
 <!-- SOCIAL PROOF -->
-<section class="proof-section">
+<section class="proof-section bg-alt">
     <div class="container">
-        <div class="proof-stat fade-in">
-            <div class="number">57</div>
-            <div class="label">người đang học cùng Stoword</div>
-        </div>
+        <div class="proof-stat fade-in"><div class="number">57</div><div class="label">người đang học cùng Stoword</div></div>
         <div class="testimonial-card fade-in">
             <div class="quote-mark">"</div>
-            <blockquote>
-                Mình từng kẹt ở Writing 6.0 suốt 1 năm, học từ vựng kiểu nào cũng quên. Cách học qua Story của Stoword khác hẳn — mình nhớ được từ "sophisticated" vì nó gắn với một tình huống cụ thể trong đầu, không phải nghĩa từ điển.
-            </blockquote>
+            <blockquote>Mình từng kẹt ở Writing 6.0 suốt 1 năm, học từ vựng kiểu nào cũng quên. Cách học qua Story của Stoword khác hẳn — mình nhớ được từ "sophisticated" vì nó gắn với một tình huống cụ thể trong đầu, không phải nghĩa từ điển.</blockquote>
             <div class="testimonial-author">
                 <div class="img-placeholder"><span class="material-icons-outlined">person</span></div>
-                <div>
-                    <div class="name">Minh Anh</div>
-                    <div class="title">IELTS 7.5 Overall</div>
-                </div>
-                <div class="testimonial-stars">
-                    <span class="material-icons-outlined">star</span><span class="material-icons-outlined">star</span><span class="material-icons-outlined">star</span><span class="material-icons-outlined">star</span><span class="material-icons-outlined">star</span>
-                </div>
+                <div><div class="name">Minh Anh</div><div class="title">IELTS 7.5 Overall</div></div>
+                <div class="testimonial-stars"><span class="material-icons-outlined">star</span><span class="material-icons-outlined">star</span><span class="material-icons-outlined">star</span><span class="material-icons-outlined">star</span><span class="material-icons-outlined">star</span></div>
             </div>
         </div>
     </div>
 </section>
+
+<div class="section-sep"></div>
 
 <!-- FOUNDER -->
 <section class="founder-section">
     <div class="container">
         <div class="founder-card fade-in">
-            <div class="founder-avatar">
-                <img src="images/founder-avatar.jpg" alt="Tùng Trần">
-            </div>
-            <div>
-                <div class="founder-meta">
-                    <div class="founder-name">Tùng Trần</div>
-                    <div class="founder-role">AAS Scholar • Founder</div>
-                </div>
-                <div class="founder-bio">
-                    Tôi từng sở hữu hàng ngàn từ vựng "chết" trong sổ tay. Sang Úc du học bằng học bổng chính phủ, tôi nhận ra mình không thể giao tiếp sâu sắc dù điểm thi cao. Stoword ra đời từ chính trải nghiệm đó — để từ vựng trở thành phản xạ tự nhiên, không phải gánh nặng phải nhớ.
-                </div>
-            </div>
+            <div class="founder-avatar"><img src="images/founder-avatar.jpg" alt="Tùng Trần"></div>
+            <div><div class="founder-meta"><div class="founder-name">Tùng Trần</div><div class="founder-role">AAS Scholar • Founder</div></div><div class="founder-bio">Tôi từng sở hữu hàng ngàn từ vựng "chết" trong sổ tay. Sang Úc du học bằng học bổng chính phủ, tôi nhận ra mình không thể giao tiếp sâu sắc dù điểm thi cao. Stoword ra đời từ chính trải nghiệm đó — để từ vựng trở thành phản xạ tự nhiên, không phải gánh nặng phải nhớ.</div></div>
         </div>
     </div>
 </section>
+
+<div class="section-sep"></div>
 
 <!-- FINAL CTA -->
 <section class="final-cta" id="register">
     <div class="container">
-        <div class="contrast-line fade-in">
-            <span class="old">Tiếp tục lật flashcard, nhìn nghĩa, quên, lật lại?</span><br>
-            Hay để <span class="new">não bạn tự bật từ ra khi cần</span>?
-        </div>
+        <div class="contrast-line fade-in"><span class="old">Tiếp tục lật flashcard, nhìn nghĩa, quên, lật lại?</span><br>Hay để <span class="new">não bạn tự bật từ ra khi cần</span>?</div>
         <h2 class="fade-in">Thử một cách học<br>mà não bạn thực sự ghi nhớ.</h2>
         <p class="sub fade-in fade-in-delay-1">Miễn phí. Không cần thẻ tín dụng. Bắt đầu trong 30 giây.</p>
-        <a href="https://stoword.com" class="btn-gold fade-in fade-in-delay-2" style="font-size:1rem;padding:18px 48px;">
-            Bắt đầu học miễn phí
-            <span class="material-icons-outlined" style="font-size:20px;">arrow_forward</span>
-        </a>
+        <a href="https://stoword.com" class="btn-gold fade-in fade-in-delay-2" style="font-size:1rem;padding:18px 48px;">Bắt đầu học miễn phí <span class="material-icons-outlined" style="font-size:20px;">arrow_forward</span></a>
     </div>
 </section>
 
-<footer>
-    <div class="container">
-        <p>© 2026 Stoword. All rights reserved.</p>
-    </div>
-</footer>
+<footer><div class="container"><p>© 2026 Stoword. All rights reserved.</p></div></footer>
 
-<!-- SCRIPTS -->
 <script>
-    // === Fade-in on scroll ===
+    // Fade-in
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // === Smooth scroll ===
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(a => {
-        a.addEventListener('click', function(e) {
-            e.preventDefault();
-            const t = document.querySelector(this.getAttribute('href'));
-            if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
+        a.addEventListener('click', function(e) { e.preventDefault(); const t = document.querySelector(this.getAttribute('href')); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
     });
 
-    // === How It Works Carousel ===
+    // Carousel
     (function() {
         const track = document.getElementById('howTrack');
         const tabs = document.querySelectorAll('.how-tab');
-        let current = 0;
-        let autoTimer = null;
-        const INTERVAL = 6000; // 6s per slide
-
+        let current = 0, autoTimer = null;
+        const INTERVAL = 6000;
         function goTo(idx) {
             current = idx;
             track.style.transform = `translateX(-${current * 100}%)`;
-            tabs.forEach((tab, i) => {
-                tab.classList.toggle('active', i === current);
-                // Reset progress animation
-                const bar = tab.querySelector('.progress-bar');
-                bar.style.animation = 'none';
-                bar.offsetHeight; // trigger reflow
-                bar.style.animation = '';
-            });
+            tabs.forEach((tab, i) => { tab.classList.toggle('active', i === current); const bar = tab.querySelector('.progress-bar'); bar.style.animation = 'none'; bar.offsetHeight; bar.style.animation = ''; });
         }
-
-        function next() {
-            goTo((current + 1) % 4);
-        }
-
-        function startAuto() {
-            stopAuto();
-            autoTimer = setInterval(next, INTERVAL);
-        }
-
-        function stopAuto() {
-            if (autoTimer) clearInterval(autoTimer);
-        }
-
-        // Tab clicks
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                goTo(parseInt(tab.dataset.step));
-                startAuto(); // restart timer
-            });
-        });
-
-        // Touch swipe
+        function next() { goTo((current + 1) % 4); }
+        function startAuto() { stopAuto(); autoTimer = setInterval(next, INTERVAL); }
+        function stopAuto() { if (autoTimer) clearInterval(autoTimer); }
+        tabs.forEach(tab => { tab.addEventListener('click', () => { goTo(parseInt(tab.dataset.step)); startAuto(); }); });
         let touchStartX = 0;
         const carousel = document.querySelector('.how-carousel');
-        carousel.addEventListener('touchstart', e => {
-            touchStartX = e.touches[0].clientX;
-            stopAuto();
-        }, { passive: true });
-        carousel.addEventListener('touchend', e => {
-            const diff = touchStartX - e.changedTouches[0].clientX;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0 && current < 3) goTo(current + 1);
-                else if (diff < 0 && current > 0) goTo(current - 1);
-            }
-            startAuto();
-        }, { passive: true });
-
-        // Start
-        goTo(0);
-        startAuto();
-
-        // Pause when not visible
-        const howSection = document.querySelector('.how-section');
-        const howObserver = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) startAuto();
-                else stopAuto();
-            });
-        }, { threshold: 0.2 });
-        howObserver.observe(howSection);
+        carousel.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; stopAuto(); }, { passive: true });
+        carousel.addEventListener('touchend', e => { const diff = touchStartX - e.changedTouches[0].clientX; if (Math.abs(diff) > 50) { if (diff > 0 && current < 3) goTo(current + 1); else if (diff < 0 && current > 0) goTo(current - 1); } startAuto(); }, { passive: true });
+        goTo(0); startAuto();
+        const howObserver = new IntersectionObserver(entries => { entries.forEach(entry => { if (entry.isIntersecting) startAuto(); else stopAuto(); }); }, { threshold: 0.2 });
+        howObserver.observe(document.querySelector('.how-section'));
     })();
 
-    // === Science Accordion ===
-    function toggleSci(header) {
-        const item = header.parentElement;
-        const wasOpen = item.classList.contains('open');
-        
-        // Close all
-        document.querySelectorAll('.sci-item').forEach(i => i.classList.remove('open'));
-        
-        // Toggle clicked (if it wasn't already open)
-        if (!wasOpen) item.classList.add('open');
-    }
+    // Accordion
+    function toggleSci(header) { const item = header.parentElement; const wasOpen = item.classList.contains('open'); document.querySelectorAll('.sci-item').forEach(i => i.classList.remove('open')); if (!wasOpen) item.classList.add('open'); }
 </script>
-
 </body>
 </html>
